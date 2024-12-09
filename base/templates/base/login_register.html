@@ -2,26 +2,42 @@
 
 {% block content %}
 
+
+
+{% if page == 'login' %}
+
 <div>
     <form method="POST" action="{% url 'login' %}">
         {%csrf_token%}
-
+        <br>
         <label>UserName:</label>
         <input type="text" name="username" placeholder="Enter your username">
 
         <label>Password:</label>
-        <input type="password" name="password" placeholder="Enter your password">
+        <input type="password" name="password" placeholder="Enter your password"><br><br>
 
         <input type="submit" value="Login">
     </form>
+
+    <p>haven't signed up yet</p>
+    <a href = "{%url 'register'%}">Sign Up </a>
 </div>
 
-{% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li class="alert">{{ message }}</li>
-        {% endfor %}
-    </ul>
+{% else %}
+
+<div>
+    <form method="POST" action="{% url 'register' %}">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Register">
+    </form>
+
+    <p>Already signed up yet</p>
+    <a href = "{%url 'login' %}"> login </a>
+</div>
+
 {% endif %}
+
+
 
 {% endblock content %}
